@@ -1,0 +1,72 @@
+ 
+1a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+var arr= ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+
+1b) Insert a new person, "Mary" at the end of the line. In other words, you should insert Mary after Mike.
+
+
+var arr= ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+function amusementParkRide(arr,element){
+   var newArr=arr.slice()
+     newArr.push('Mary')
+     return newArr
+  }
+   
+
+var newperson= amusementParkRide(arr,'Mary')
+
+ 
+
+1c) Find a person in line named "Josh." This function should return the position of 2 in the array, (recall that arrays are 0-based).
+
+function findJosh(arr){
+   for (var i=0; i<=arr.length;i++){
+     if (arr[i]==='Josh'){
+       return (i)
+     }
+   }
+ }
+
+1d) d) Find a person in line named "Emily." What should your function return if it does not find the item in the array?
+
+function findEmily(arr){
+   for (var i=0; i<=arr.length;i++){
+     if (arr[i]==='Josh'){
+       return (i)
+     }
+     else return 'cannot find Emily'
+   }
+ }
+
+1e) What if Ava wants to allow a friend, "Melissa", to cut in line in front of her? How would you code this so Melissa appears before Ava?
+
+
+var arr= ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+ function addInLine(arr){
+    arr.splice(1,0,'Melissa')
+    return arr
+ }
+
+1f)  If Patrick wants to leave the line, how would you delete him from the array?
+
+var arr= ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+
+function removeRider(arr){
+   arr.splice(3,1)
+   return arr
+ }
+
+
+
+2) Provide another real-world example that you can model using a data structure.
+
+	we could use real world examples such as removing / adding/modifying items to the shopping cart, selectively deciding which element on the array you want to manipulate. 
+
+3) How would your data structure allow developers to access and manipulate the data?
+ 	Data structures is the way we organize information, how we organize information have impact on performance. If we think of data structure as a library, if the books are not organized in a specific manner we cannot access the books we wanted. The idea is very similar to data structure, in order to access/manipulate data we need to know how data is organized. 
+

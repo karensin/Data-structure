@@ -1,0 +1,220 @@
+1. In your own words, explain what clean code is and why it is important.
+	Cleaning coding is important not just for yourself but also for other developers who are collaborating or working on the same project. 
+	
+
+
+
+
+2 Read this article about Toyota and their use of bad code. Although you may not yet understand all of the topics discussed, think about another commonly used object that relies on computers and explain what would happen if the code was not created to an acceptable standard.
+	Codes that are not created to standards would be problematic, not only it might be buggy and will not function. In severe cases such as the Toyota article, it states "that vehicle tests confirmed that one particular dead task would result in loss of throttle control, and that the driver might have to fully remove their foot from the brake during an unintended acceleration event before being able to end the unwanted acceleration." Not only the break is not functioning correctly it might even backfire and cause harm to users. 
+
+
+
+3. Would you consider the following to be clean code? Explain why or why not. If not, refactor the code.
+```
+FUNCTION do(x, y)               // Creating a new function
+ IF y = "F" THEN               // Check if y is equal "F"
+ SET z to (x−32) * (5/9)       // Formula to convert degrees fahrenheit to celsius
+ PRINT z                       // Print result
+ ELSE IF y = "C" THEN          // If y not equal to "F", check if equal to "C"
+ SET z to x * 1.8000 + 32.00   // Formula to convert degrees celsius to fahrenheit
+ PRINT z                       // Print result
+ END IF
+END FUNCTION
+```
+```
+FUNCTION do(x, y) 
+ 	IF y = "F" THEN /
+	SET z to (x−32) * (5/9) 
+	ELSE	SET z to x * 1.8000 + 32.00 
+ 	PRINT z  
+	END IF 
+END FUNCTION
+
+```
+
+
+
+4. 
+```
+FUNCTION calcPercent(sum, total)
+ IF NOT(total = 0) THEN
+     SET percentage to sum / total * 100
+ ELSE
+   PRINT "Sorry, cannot divide by 0"
+ END IF
+
+ PRINT percentage
+END FUNCTION
+```
+This code is clean and no need further edits 
+
+
+5a.
+
+``` 
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+   PRINT "Your total due is: " + subTotal * discountRate + (subTotal * tax)
+
+   IF paymentType = 'CASH' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Your credit card has been charged: " + subTotal * discountRate + (subTotal * tax)
+   END IF
+END FUNCTION
+```
+
+```
+FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+
+   totalDue = subTotal * discountRate + (subTotal * tax)
+
+   PRINT "Your total due is: " + totalDue
+
+   IF paymentType = 'CASH' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Change due: " + amount - subTotal * discountRate + (subTotal * tax)
+   ELSE IF paymentType = 'CREDIT CARD' THEN
+       CALL getPayment RETURNING amount
+       PRINT "Your credit card has been charged: " + totalDue  
+   END IF
+   END FUNCTION
+```
+5b. 
+
+```
+FUNCTION checkoutBook(book, guest)
+ IF guest.accountActive THEN
+     IF NOT(guest.hasOverdueBooks) THEN
+         IF guest.outstandingFees = 0 THEN
+           APPEND book to guest.books
+           SET book.status to "Checked Out"
+           PRINT "Your books have been issued."
+         END IF
+     END IF
+ ELSE
+     PRINT "Unable to check out book."
+ END IF
+END FUNCTION
+```
+```
+
+FUNCTION checkoutBook(book, guest)
+ IF guest.accountActive AND NOT(guest.hasOverdueBooks)AND guest.outstandingFees = 0 
+	THEN
+           APPEND book to guest.books
+           SET book.status to "Checked Out"
+           PRINT "Your books have been issued."
+         END IF
+     END IF
+ ELSE
+     PRINT "Unable to check out book."
+ END IF
+END FUNCTION
+
+```
+
+5c.
+```
+CLASS BankAccount
+
+ FUNCTION displayBalance
+    PRINT balance
+ END FUNCTION
+
+ FUNCTION deposit(amount)
+    SET balance to balance + amount
+ END FUNCTION
+
+ FUNCTION withdraw(amount)
+     IF balance > amount THEN
+       SET balance to balance - amount
+     END
+ END FUNCTION
+
+
+ FUNCTION creditCardOffer
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     END
+ END FUNCTION
+
+ FUNCTION checkStatus
+     IF NOT(customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END
+ END FUNCTION
+
+ ....
+ ....
+ ....
+
+END
+```
+```
+CLASS BankAccount
+
+ FUNCTION displayBalance
+    PRINT balance
+ END FUNCTION
+
+ FUNCTION deposit(amount)
+    SET balance to balance + amount
+ END FUNCTION
+
+ FUNCTION withdraw(amount)
+     IF balance > amount THEN
+       SET balance to balance - amount
+     END
+ END FUNCTION
+
+CLASS AccountOffers
+
+ FUNCTION creditCardOffer
+     IF NOT(customer.hasCreditCard) THEN
+         CALL offerCreditCard
+     END
+ END FUNCTION
+
+ FUNCTION checkStatus
+     IF NOT(customer.hasCheckingAccount) THEN
+         CALL offerCheckingAccount
+     END
+ END FUNCTION
+
+ ....
+ ....
+ ....
+
+END
+```
+Programming Questions
+
+
+function isPerfectSqaure (arr){
+  var totalArr=arr.reduce((num,acc)=>num+acc,0)
+  var squareRoot= Math.sqrt(totalArr)  
+   if (squareRoot/totalArr===1){
+    return squareRoot
+  }
+  else return totalArr
+}
+
+
+ ```
+ 
+ function isDuplicate(arr){
+   var counts=[];
+   for (var i=0;i<=arr.length;i++){
+     if(counts[arr[i]]===undefined){
+       counts[arr[i]]=1; 
+      }
+     else {
+       return true
+     }
+   }
+   return false
+ }  
+ ```
