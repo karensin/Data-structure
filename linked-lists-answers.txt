@@ -5,7 +5,7 @@ However if you want to insert/delete a specific element in the end of the linked
 
 Come up with a real world example of a linked list.
 
-This could be an example of 
+This could be an example of a book, chapters are link and organized by the order.
 
  
 Programming Questions
