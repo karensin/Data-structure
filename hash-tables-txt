@@ -28,246 +28,182 @@ All of the books checked out from a library by a particular individual.
 The primary and secondary phone numbers for a contact.
 -Object
 
+
+
+
+
+
+
 Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
 
+ 
+var makeHashTable = function(max) {
+    var storage = [],
+        hashTableMethods = {
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash+= key.charCodeAt(i)
+                }
 
+                return Math.abs(hash % max);
+            },
+
+            add: function(key, value) {
+                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                    throw ('Cannot add Undefined')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+            
+                }
+                return this;
+            },
+            
+            find: function(key) {
+                var hashIndex = this.createHashIndex(key);
+                return 'Phone Number: '+  key +',  Name:' +  storage[hashIndex][0]+ ' , Address: ' + storage[hashIndex][1] ;
+            },
+
+        };
+
+    return hashTableMethods;
+};
 
  
-var hash = (string, max) => {
-  var hash = 0;
-  for (var i = 0; i < string.length; i++) {
-    hash += string.charCodeAt(i);
-  }
-  return hash % max;
+
+var contactsToAdd = {
+    1234567890: ['John Smith','555 4th street'],
+    5555555555: ['Jane Smith', '555 4th street'],
 };
 
-let HashTable = function() {
+var contactsHash = makeHashTable(100);
 
-  let storage = [];
-  const storageLimit = 14;
-  
-  this.print = function() {
-    console.log(storage)
-  }
+for (var key in contactsToAdd) {
+    contactsHash.add(key, contactsToAdd[key]);
+}
 
-  this.add = function(key, value) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      storage[index] = [
-        [key, value]
-      ];
-    } else {
-      var inserted = false;
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          storage[index][i][1] = value;
-          inserted = true;
-        }
-      }
-      if (inserted === false) {
-        storage[index].push([key, value]);
-      }
-    }
-  };
+contactsHash.add(9999, ['Ronald','1000 Greenland St']) 
 
-  this.remove = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index].length === 1 && storage[index][0][0] === key) {
-      delete storage[index];
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          delete storage[index][i];
-        }
-      }
-    }
-  };
-
-  this.lookup = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      return undefined;
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          return storage[index][i][1];
-        }
-      }
-    }
-  };
-
-};
-
-var newHashTable= new HashTable()
-
-newHashTable.add(12345,{name:'karen', address:'xxx ave'})
-
-newHashTable.add(678910,{name:'sin', address:'ooo ave'})
-
-console.log(newHashTable.lookup(12345))
-
-console.log(newHashTable.lookup(678910))
-
-
-
-Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+console.log(contactsHash.find('1234567890'));
+console.log(contactsHash.find(9999))
 
  
-var hash = (string, max) => {
-  var hash = 0;
-  for (var i = 0; i < string.length; i++) {
-    hash += string.charCodeAt(i);
-  }
-  return hash % max;
+
+
+
+
+
+
+
+7 ) var makeHashTable = function(max) {
+
+    var storage = [],
+        hashTableMethods = {
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash+= key.charCodeAt(i)
+                }
+          
+                return Math.abs(hash % max);
+            },
+
+            add: function(key, value) {
+                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+                    throw ('Cannot add Undefined')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+                }
+                return this;
+            },
+            
+            find: function(key) {
+                var hashIndex = this.createHashIndex(key);
+                return 'Inventory Barcodes: ' + key + ' '+ 'Item: ' + storage[hashIndex][0]+ ', In Stock:' + storage[hashIndex][1];
+            },
+
+        };
+
+    return hashTableMethods;
+};
+var inventoryBarcodes = {
+    454563456: ['Table Saw',200],
+    781267: ['Cups', 100],
+    45645644: ['Oil', 500],
+    1234567897: ['Coke 20oz', 20],
+    42784642: ['Drywall Screws 100ct',3],
 };
 
-let HashTable = function() {
+var inventoryHash= makeHashTable(100)
 
-  let storage = [];
-  const storageLimit = 14;
-  
-  this.print = function() {
-    console.log(storage)
+
+for (var key in inventoryBarcodes){
+  inventoryHash.add(key, inventoryBarcodes[key])
+}
+
+inventoryHash.add(12345,['Ice Cream', 10])
+inventoryHash.find(12345)
+
+
+
+
+8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+ let hash=( string, max)=> {
+   var hash=0; 
+   for(var i=0; i<string.length; i++){
+     hash += string.charCodeAt(i);
+   }
+   return hash % max
+ }
+
+ class Newspaper{
+   constructor(){
+     this.storage=[];
+     this.storageLimit=100;;
+   }
+  add(publisher, date){
+    var key= publisher + date; 
+    let index= hash(key, this.storageLimit)
+    let data= [publisher,date];
+    if(this.storage[index]===undefined){
+      this.storage[index]= [ ]
+    }
+  this.storage[index].push(data)
+ }
+
+ find(publisher, pubDate) {
+    let key = publisher + pubDate;
+    let index = hash(key, this.storageLimit);
+    let result = [];
+    
+    if (!this.storage[index]) { 
+      return 'No results were found for this search' 
+      }
+      this.storage[index].forEach(entry => {
+       if (entry[0] === publisher && entry[1] === pubDate) { 
+        result.push(entry); 
+      }
+    })
+    return result;
   }
-
-  this.add = function(key, value) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      storage[index] = [
-        [key, value]
-      ];
-    } else {
-      var inserted = false;
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          storage[index][i][1] = value;
-          inserted = true;
-        }
-      }
-      if (inserted === false) {
-        storage[index].push([key, value]);
-      }
-    }
-  };
-
-  this.remove = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index].length === 1 && storage[index][0][0] === key) {
-      delete storage[index];
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          delete storage[index][i];
-        }
-      }
-    }
-  };
-
-  this.lookup = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      return undefined;
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          return storage[index][i][1];
-        }
-      }
-    }
-  };
-
-};
+}
 
 
-var ht = new HashTable();
-ht.add('Snacks', 130);
-ht.add('Beverages', 503);
-ht.add('Frozen Food', 360);
- 
-ht.lookup("Frozen Food")
-
-
-
-Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
-
-
-
-
-
- 
-var hash = (string, max) => {
-  var hash = 0;
-  for (var i = 0; i < string.length; i++) {
-    hash += string.charCodeAt(i);
-  }
-  return hash % max;
-};
-
-let Newspaper = function() {
-
-  let storage = [];
-  const storageLimit = 14;
-  
-  this.print = function() {
-    console.log(storage)
-  }
-
-  this.add = function(key, value) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      storage[index] = [
-        [key, value]
-      ];
-    } else {
-      var inserted = false;
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          storage[index][i][1] = value;
-          inserted = true;
-        }
-      }
-      if (inserted === false) {
-        storage[index].push([key, value]);
-      }
-    }
-  };
-
-  this.remove = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index].length === 1 && storage[index][0][0] === key) {
-      delete storage[index];
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          delete storage[index][i];
-        }
-      }
-    }
-  };
-
-  this.lookup = function(key) {
-    var index = hash(key, storageLimit);
-    if (storage[index] === undefined) {
-      return undefined;
-    } else {
-      for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-          return storage[index][i][1];
-        }
-      }
-    }
-  };
-
-};
 
 let news = new Newspaper();
-news.add('abcde', '2009');
-news.add('jane doe', '1990');
+news.add('Pragmatic Bookshelf', '2009');
+news.add('xxxx', '1990');
+news.add('St','2008');
  
-news.lookup('abcde', '2009');
-
-news.lookup('jane doe', '1990');
-
-  
 
 
+console.log(news.find ('Pragmatic Bookshelf', '2009'));
+console.log(news.find('Sns', '1990'));
+ 
+ 
+
+
+ 
