@@ -30,14 +30,9 @@ The primary and secondary phone numbers for a contact.
 
 
 
-
-
-
-
 Build a system that allows a sales associate to enter a customer's name, address, and phone number into the system and look up customers using their phone numbers. Store this information in a hash table.
 
- 
-var makeHashTable = function(max) {
+  var makeHashTable = function(max) {
     var storage = [],
         hashTableMethods = {
             createHashIndex: function(key) {
@@ -49,20 +44,25 @@ var makeHashTable = function(max) {
                 return Math.abs(hash % max);
             },
 
-            add: function(key, value) {
-                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+
+            add_2: function(item) {
+             
+                if (false)
                     throw ('Cannot add Undefined')
                 else {
-                    var hashIndex = this.createHashIndex(key);
-                    storage[hashIndex] = value;
+                    var hashIndex = this.createHashIndex(item.phoneNumber);
+                    storage[hashIndex] = item;
             
                 }
                 return this;
             },
-            
-            find: function(key) {
-                var hashIndex = this.createHashIndex(key);
-                return 'Phone Number: '+  key +',  Name:' +  storage[hashIndex][0]+ ' , Address: ' + storage[hashIndex][1] ;
+             
+
+            find_2: function(item) {
+              
+                var hashIndex = this.createHashIndex(item.phoneNumber);
+                
+                return storage[hashIndex];
             },
 
         };
@@ -70,24 +70,29 @@ var makeHashTable = function(max) {
     return hashTableMethods;
 };
 
- 
 
-var contactsToAdd = {
-    1234567890: ['John Smith','555 4th street'],
-    5555555555: ['Jane Smith', '555 4th street'],
-};
+
+var foo = [
+  {
+  phoneNumber: '12312',
+  name: 'John'
+  },
+  {
+    phoneNumber: '1231234',
+    name: 'John2'
+  }
+  ];
 
 var contactsHash = makeHashTable(100);
+ 
+foo.forEach((item) => {
+contactsHash.add_2(item)
+});
 
-for (var key in contactsToAdd) {
-    contactsHash.add(key, contactsToAdd[key]);
-}
+ 
 
-contactsHash.add(9999, ['Ronald','1000 Greenland St']) 
-
-console.log(contactsHash.find('1234567890'));
-console.log(contactsHash.find(9999))
-
+console.log(contactsHash.find_2({phoneNumber: '1231234'}));
+ 
  
 
 
@@ -96,8 +101,8 @@ console.log(contactsHash.find(9999))
 
 
 
-7 ) var makeHashTable = function(max) {
 
+7 )  var makeHashTable = function(max) {
     var storage = [],
         hashTableMethods = {
             createHashIndex: function(key) {
@@ -105,105 +110,130 @@ console.log(contactsHash.find(9999))
                 for (var i = 0; i < key.length; i++) {
                     hash+= key.charCodeAt(i)
                 }
-          
+
                 return Math.abs(hash % max);
             },
 
-            add: function(key, value) {
-                if (key === undefined || value === undefined || key.length === 0 || value.length === 0)
+
+            add_2: function(key) {
+             
+                if (false)
                     throw ('Cannot add Undefined')
                 else {
-                    var hashIndex = this.createHashIndex(key);
-                    storage[hashIndex] = value;
+                    var hashIndex = this.createHashIndex(key.item);
+                    storage[hashIndex] = key;
+            
                 }
                 return this;
             },
-            
-            find: function(key) {
-                var hashIndex = this.createHashIndex(key);
-                return 'Inventory Barcodes: ' + key + ' '+ 'Item: ' + storage[hashIndex][0]+ ', In Stock:' + storage[hashIndex][1];
+             
+
+            find_2: function(key) {
+              
+                var hashIndex = this.createHashIndex(key.item);
+                
+                return storage[hashIndex];
             },
 
         };
 
     return hashTableMethods;
 };
-var inventoryBarcodes = {
-    454563456: ['Table Saw',200],
-    781267: ['Cups', 100],
-    45645644: ['Oil', 500],
-    1234567897: ['Coke 20oz', 20],
-    42784642: ['Drywall Screws 100ct',3],
-};
+
+
+
+
+
+var inventoryBarcodes = [
+  { inventory: 100, 
+    item: 'milk',
+},
+{
+  inventory:20,
+  item:'ice cream',
+}
+]
 
 var inventoryHash= makeHashTable(100)
 
+inventoryBarcodes.forEach((item)=>{
+  inventoryHash.add_2(item)
+})
+ 
 
-for (var key in inventoryBarcodes){
-  inventoryHash.add(key, inventoryBarcodes[key])
-}
+ inventoryHash.find_2({item:'milk'})
 
-inventoryHash.add(12345,['Ice Cream', 10])
-inventoryHash.find(12345)
 
 
 
 
 8. Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+ var makeHashTable = function(max) {
+    var storage = [],
+        hashTableMethods = {
+            createHashIndex: function(key) {
+                var hash = 0;
+                for (var i = 0; i < key.length; i++) {
+                    hash+= key.charCodeAt(i)
+                }
 
- let hash=( string, max)=> {
-   var hash=0; 
-   for(var i=0; i<string.length; i++){
-     hash += string.charCodeAt(i);
-   }
-   return hash % max
- }
+                return Math.abs(hash % max);
+            },
 
- class Newspaper{
-   constructor(){
-     this.storage=[];
-     this.storageLimit=100;;
-   }
-  add(publisher, date){
-    var key= publisher + date; 
-    let index= hash(key, this.storageLimit)
-    let data= [publisher,date];
-    if(this.storage[index]===undefined){
-      this.storage[index]= [ ]
-    }
-  this.storage[index].push(data)
- }
 
- find(publisher, pubDate) {
-    let key = publisher + pubDate;
-    let index = hash(key, this.storageLimit);
-    let result = [];
-    
-    if (!this.storage[index]) { 
-      return 'No results were found for this search' 
-      }
-      this.storage[index].forEach(entry => {
-       if (entry[0] === publisher && entry[1] === pubDate) { 
-        result.push(entry); 
-      }
-    })
-    return result;
-  }
+            add_2: function(value) {
+                var key= value.publisher +value.pubDate;
+                if (false)
+                    throw ('Cannot add Undefined')
+                else {
+                    var hashIndex = this.createHashIndex(key);
+                    storage[hashIndex] = value;
+            
+                }
+                return this;
+            },
+             
+
+            find_2: function(value) {
+                var key= value.publisher +value.pubDate;
+                var hashIndex = this.createHashIndex(key);
+ 
+                return storage[hashIndex];
+            },
+
+        };
+
+    return hashTableMethods;
+};
+
+
+
+
+
+var newspaperLog = [
+  { publisher: 'Karen', 
+    pubDate: 2019,
+    paper: 'abc'
+
+},
+{
+  publisher: 'john', 
+  pubDate: 1999,
+  paper: 'dogs'
+
 }
+]
 
+var newspaperHash= makeHashTable(100)
 
-
-let news = new Newspaper();
-news.add('Pragmatic Bookshelf', '2009');
-news.add('xxxx', '1990');
-news.add('St','2008');
+newspaperLog.forEach((item)=>{
+  newspaperHash.add_2(item)
+})
  
 
+ newspaperHash.find_2(
+   {publisher: 'Karen', 
+    pubDate: '2019'}
+    )
 
-console.log(news.find ('Pragmatic Bookshelf', '2009'));
-console.log(news.find('Sns', '1990'));
- 
- 
 
-
- 
