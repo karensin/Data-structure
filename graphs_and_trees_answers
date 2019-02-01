@@ -1,0 +1,233 @@
+What is a binary tree and what makes it unique to other trees?
+
+It is a collection of nodes and each node has 3 attributes, value, left child and right child 
+
+What is a heuristic?
+-to have best possible solution/ educated guess/ a qualified logic type of programing 
+
+
+What is another problem besides the shortest-path problem that requires the use of heuristics?
+
+Antivirus software- it uses heuristic rules for detecting viruses and other forms of malware. Heuristic scanning looks for code and behavior patterns common to a class/ family of viruses. if a file or executing process is found to contain matching code patterns or to be performing that set of activities the scanner infers the file is infected.  
+
+
+What is the difference between a depth-first search and a breadth-first search?
+
+
+depth-first search is the process of traveling down a single branch to search for the desired element, it will continue searches and move upwards and repeat the process with unlisted Nodes. 
+
+breadth-first search choose to go right as long as there is a possible right, if failed to find the Node, it will go back to the parent 
+choose left and from that sibling node go as far as possible. 
+
+Explain in your own words what an undirected, a-cyclic, unweighted graph is.
+
+
+A two way, connected graph that doesn’t have a start or end node or specific direction.
+Though it could go either to the left or right but do not form loops (dead-end) and do not assign the cost of travel between nodes. 
+
+What kind of graph is a binary search tree?
+
+
+A binary search tree is a directed, acyclic and unweighted graph because it does not form loops and there is a single parent node. 
+
+
+
+Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+
+Example: The value 10 exists in the tree. The value 23 does not exist in the tree.
+
+
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(data) {
+   
+    var newNode = new Node(data);
+    if(this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+ 
+  insertNode(node, newNode) {
+     
+    if(newNode.data < node.data) {
+       if(node.left === null) {
+        node.left = newNode
+      } else {
+        this.insertNode(node.left, newNode)
+      }
+    } else {
+      if(node.right === null) {
+        node.right = newNode
+      } else {
+        this.insertNode(node.right, newNode)
+      }
+    }
+  }
+
+  contains(data) {
+    let current = this.root
+    while(current) {
+      if(data === current.data) {
+        return 'The value ' + data + ' exists in the tree.'
+      }
+      if(data < current.data) {
+        current = current.left
+      } else {
+        current = current.right
+      }
+    }
+     return 'The value ' + data + '  does not exist in the tree.'
+  }
+
+}
+
+var newSearchTree = new BinarySearchTree()
+newSearchTree.insert(10)
+newSearchTree.insert(3)
+console.log( newSearchTree.contains(10))
+console.log(newSearchTree.contains(23))
+
+
+
+
+Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+
+
+
+Example: The distance between the nodes 4 and 10 is 4. The distance between the nodes 8 and 10 is 1. The distance between the nodes 1 and 14 is 4.
+
+ class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+class BinarySearchTree {
+  constructor() {
+    this.root = null;
+  }
+
+  insert(data) {
+   
+    var newNode = new Node(data);
+    if(this.root === null) {
+      this.root = newNode;
+    } else {
+      this.insertNode(this.root, newNode);
+    }
+  }
+ 
+  insertNode(node, newNode) {
+     
+    if(newNode.data < node.data) {
+       if(node.left === null) {
+        node.left = newNode
+      } else {
+        this.insertNode(node.left, newNode)
+      }
+    } else {
+      if(node.right === null) {
+        node.right = newNode
+      } else {
+        this.insertNode(node.right, newNode)
+      }
+    }
+  }
+
+  contains(data) {
+    let current = this.root
+    
+    while(current) {
+      if(data === current.data) {
+        return 'The value ' + data + ' exists in the tree.'
+      }
+      if(data < current.data) {
+        current = current.left
+      } else {
+        current = current.right
+      }
+    }
+     return 'The value ' + data + '  does not exist in the tree.'
+  }
+
+  findLevel(root,data,d,level){
+    if (!root){
+      return; 
+    }
+    if (root.data==data){
+    d.push(level); 
+    return 
+  }
+    if(root.data> data)
+    return this.findLevel(root.left,data,d,level+1)
+    if(root.data<data){
+      return this.findLevel(root.right,data,d,level+1)
+
+    }
+  }
+  
+  findLCA (n1, n2) {
+    let current = this.root
+    if(n1 > n2) {
+      let temp = n1
+      n1 = n2
+      n2 = temp
+    }
+    if(current.data == n1 || current.data == n2) {
+      return current
+    }
+    if(current.data < n1) {
+      current = current.right
+    }
+    if(current.data > n2) {
+      current = current.left
+    }
+    return current 
+  }
+
+  distanceBetweenNodes(root, n1, n2) {
+    let lca = this.findLCA(n1, n2)
+    let d1 = []
+    let d2 = []
+    if (lca) {
+      this.findLevel(lca, n1, d1, 0)
+      this.findLevel(lca, n2, d2, 0)
+      return d1[0] + d2[0]
+    } else {
+      return -1
+    }
+  }
+}
+
+
+
+var newSearchTree = new BinarySearchTree()
+newSearchTree.insert(1)
+
+newSearchTree.insert(3)
+newSearchTree.insert(8)
+newSearchTree.insert(6)
+newSearchTree.insert(4)
+newSearchTree.insert(7)
+newSearchTree.insert(10)
+newSearchTree.insert(14)
+newSearchTree.insert(13)
+
+newSearchTree.findLCA(1,14)
+
+newSearchTree.distanceBetweenNodes(newSearchTree,1,14)
