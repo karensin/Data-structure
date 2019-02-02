@@ -1,0 +1,71 @@
+
+
+
+
+1. Using proper pseudo-code, describe the following primitive algorithms:
+
+
+Making coffee;
+
+FUNCTION MakeCofee 
+	INPUT Coffee grounds
+	INPUT Water for the coffee 
+	ADD coffee ground to the Coffee machine 
+	ADD water to the coffee machine 
+	IF coffee sounds AND water in the coffee machine 
+		turn on the coffee machine 
+	 WHILE water is still dripping 
+		keep the machine going
+	
+	 END WHILE  
+	
+	PRINT coffee 
+	
+	END IF
+
+	ELSE 
+		do not turn on the coffee machine 
+	END ELSE 
+END FUNCTION 
+	
+Washing dishes;
+	INPUT DISHES 
+	INPUT WATER 
+	WHILE sink is empty 
+		increment water 
+	END WHILE
+	INPUT SOAP 
+	IF sink has water 
+	 ADD soap AND dishes 
+	  FOR each dirty dish 
+	    rinse and wash 
+	  END FOR
+	END IF 
+	END FUNCTION  
+		
+
+	
+A choice of your own.
+ making a fried egg 
+  FUNCTION	
+	INPUT egg
+	INPUT oil 
+	INPUT frying pan 
+	IF egg AND oil AND frying pan are present 
+	  turn on the stove 
+	  ADD oil AND egg to the frying pan
+ 	WHILE egg is translucent 
+	  keep the stove on 
+	END WHILE 
+	 PRINT egg is cooked 
+       END IF 
+END FUNCTION 
+	 
+2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try to pick the best algorithm for a situation. Name three companies who created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines; what about each of your cases make them stand out?
+ 
+Facebook friend suggestions- the algorithm based on mutual friends, work, location and education information. The more you have in common the more likely the person will be recommended. 
+
+
+3.Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+Each algorithm should have well-defined instructions and serve its specific purpose. It should run in a reasonable amount of time and space. An inefficient algorithm is therefore the opposite. 
