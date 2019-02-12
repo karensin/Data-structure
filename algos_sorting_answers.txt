@@ -1,0 +1,53 @@
+Write pseudocode for bubble sort.
+FUNCTION bubbleSort(collection)
+   REPEAT
+     SET swapped to false
+     FOR i = FIRST INDEX of collection to LAST INDEX of collection - 1
+       IF collection[i] > collection[i + 1] THEN
+         SET tmp to collection[i]
+         SET collection[i] to collection[i + 1]
+         SET collection[i + 1] to tmp
+         SET swapped to true
+       END IF
+     END FOR
+   UNTIL swapped is FALSE
+   RETURN collection
+ END FUNCTION
+
+
+Write pseudocode for quicksort.
+
+Function QuickSort(collection)
+ SET low to 0 
+ SET high to collection -1 
+	IF low < high THEN
+	 SET pivot to partition WITH collection, low, high
+	 CALL quickSort WITH collection, low, pivot 
+	 CALL quickSort WITH collection, pivot +1, high 
+	END IF
+ END FUNCTION 
+
+FUNCTION partition(collection, low, high)
+ SET pivot to collection[low]	 
+ SET leftwall to low
+ 
+ FOR each item in collection 
+  IF collection [i] < pivot THEN 
+	SWAP collection [i] with collection [leftwall +1] 
+	SET leftwall to leftwall+1 
+  END IF 
+ END FOR 
+ SWAP WITH pivot, collection[leftwall] 
+ 
+
+
+
+
+We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more efficient than the others. Walking through each algorithm with a few sample collections may help.
+
+A: Both merge and quick sort use the method 'divide and conquer' to sort. Meaning that taking a large set of data and dividing them into smaller sections to sort. The sub-collections that got broken down and sorted will be much more efficient compared to other algorithms such as insertion or selection or  bubble sort there you have to continue to re-iterate over and over again the entire data set to sort. 
+
+
+All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how it works. What is the ideal input for bucket sort?
+
+A: Bucket sort is mainly useful when the input is unsorted and distributed over a range. Bucket sort is a comparison sort algorithm that operates on element by dividing them into buckets and sort these buckets individually. Each bucket is sorted individually using sorting algorithms or by applying the bucket sort algorithm recursively. 
